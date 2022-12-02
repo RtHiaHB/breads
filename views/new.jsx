@@ -7,7 +7,7 @@ function New ({ error }) {
     return (
       <Default>
         <h2>Add a new bread</h2>
-        {errorMessage && <h3 className='alert-warning'></h3>}
+        {errorMessage && <h3 className='alert-warning'>{errorMessage}</h3>}
         <div className='backButton'>
                 <a href='/breads'>
                     <button>Go back to home page</button>
