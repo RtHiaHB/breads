@@ -3,7 +3,6 @@ const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 require('dotenv').config();
 
-console.log(process.env.MONGO_URI)
 const breadRoutes = require('./controllers/bread')
 
 const app = express();
