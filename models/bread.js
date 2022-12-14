@@ -10,8 +10,8 @@ const breadSchema = new mongoose.Schema({
     required: true
   },
   baker: {
-    type: String,
-    enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Phoebe']
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Baker'
   },
   image: {
     type: String, 
@@ -20,7 +20,7 @@ const breadSchema = new mongoose.Schema({
 })
 
 breadSchema.methods.getBakedBy = function() {
-  return `${this.name} was baked with love by ${this.baker}`
+  return `${this.name} was baked with love by ${this.baker.name} who has been with us since ${this.baker.startDate.getFullYear()}`
 }
 
 breadSchema.statics.getBreadsBakedBy = function(bakerName) {

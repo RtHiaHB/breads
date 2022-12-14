@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Bread = require('../models/bread')
+const Baker = require('../models/baker')
 const seedData = require('../models/seedData')
 
 router.get('/', async (req, res) => {
@@ -11,27 +12,30 @@ router.get('/', async (req, res) => {
 })
 
 // Get:create new bread page
-router.get('/new', (req, res) => {
-    res.render('new')
+router.get('/new', async (req, res) => {
+    const bakers = await Baker.find()
+    res.render('new', {
+        bakers
+    })
 })
 
 //Get: Edit bread page
 router.get('/:id/edit', async (req, res) => {
     const { id } = req.params
     const bread = await Bread.findById(id)
+    const bakers = await Baker.find()
     res.render('edit', {
-        bread
+        bread, bakers
     })
 } )
 
 //query parameter
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    const bread = await Bread.findById(id)
+    const bread = await Bread.findById(id).populate('baker')
     res.render('show', {
         bread
     })
-    //res.send(Bread[index]);
 })
 
 router.get('/data/seed', async (req, res) => {
